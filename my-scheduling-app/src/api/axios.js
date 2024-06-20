@@ -1,0 +1,8 @@
+// src/api/axios.js
+import axios from 'axios';
+
+const instance = axios.create({
+    baseURL: 'http://localhost:8000/api/', // Replace with your Django API base URL
+});
+
+export default instance;
