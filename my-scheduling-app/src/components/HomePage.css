@@ -1,0 +1,82 @@
+.homepage {
+  background-color: white;
+}
+
+header {
+  background-color: #007bff; /* Blue */
+  color: white;
+}
+
+header .logo {
+  width: 150px; /* Adjust as necessary */
+}
+
+header .login-fields {
+  display: flex; /* Ensure the login fields are displayed side by side */
+  align-items: center; /* Align items vertically in the center */
+}
+
+header .login-fields .form-control {
+  margin-left: 10px;
+  width: auto;
+}
+
+footer {
+  background-color: #28a745; /* Green */
+  color: white;
+}
+
+img {
+  border: 2px solid #28a745; /* Green border for images */
+  padding: 10px;
+}
+
+h2 {
+  color: #007bff; /* Blue for headings */
+}
+
+.placeholder-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.placeholder-container .placeholder {
+  width: 30%; /* Adjust this percentage to change size */
+  max-width: 600px; /* Maximum size for large screens */
+  aspect-ratio: 1; /* Makes the div a square */
+  background-color: #e9ecef; /* Placeholder color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #28a745;
+  padding: 10px;
+}
+
+.call-to-action img {
+  border: 2px solid #28a745; /* Green border for CTA image */
+  padding: 10px;
+  width: 100%; /* Make it full-width */
+  max-width: 800px; /* Or any max width you prefer */
+}
+
+@media (max-width: 768px) {
+  .placeholder-container .placeholder {
+    width: 80%; /* Smaller size for small screens */
+  }
+}
+
+.login-fields {
+  display: flex; /* Added flex display */
+  align-items: center; /* Align items in the center vertically */
+}
+
+.login-fields input {
+  margin-right: 10px; /* Added margin for spacing between inputs */
+}
+
+.login-fields input:last-child {
+  margin-right: 0; /* Ensure the last input has no margin on the right */
+}
+

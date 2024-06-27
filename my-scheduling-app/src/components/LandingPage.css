@@ -1,0 +1,49 @@
+.landing-page {
+    background-color: white;
+  }
+  
+  header {
+    background-color: #007bff; /* Blue */
+    color: white;
+  }
+  
+  header .logo {
+    width: 150px; /* Adjust as necessary */
+  }
+  
+  header .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  header .user-info span {
+    margin-right: 10px;
+  }
+  
+  footer {
+    background-color: #28a745; /* Green */
+    color: white;
+  }
+  
+  img {
+    border: 2px solid #28a745; /* Green border for images */
+    padding: 10px;
+  }
+  
+  h2 {
+    color: #007bff; /* Blue for headings */
+  }
+  
+  .info-section {
+    background-color: #f8f9fa; /* Light gray background */
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .call-to-action img {
+    border: 2px solid #28a745; /* Green border for CTA image */
+    padding: 10px;
+    width: 100%; /* Make it full-width */
+    max-width: 800px; /* Or any max width you prefer */
+  }
+  

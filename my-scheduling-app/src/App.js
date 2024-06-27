@@ -1,20 +1,20 @@
-// src/App.js
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
-import MainPage from './components/MainPage';
+import LandingPage from './components/LandingPage';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);  // State to track login status
-
-  const handleLogin = (username, password) => {
-    console.log("Login attempt:", username, password);
-    setIsLoggedIn(true);  // Placeholder, replace with actual authentication logic
-  };
-
   return (
-    <div>
-      {isLoggedIn ? <MainPage /> : <LoginPage onLogin={handleLogin} />}
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route exact path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/landing" element={<LandingPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
