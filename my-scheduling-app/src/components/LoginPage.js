@@ -1,63 +1,46 @@
+// src/components/LoginPage.js
+
 import React, { useState } from 'react';
+import axios from '../api/axios';
 import { useNavigate } from 'react-router-dom';
-import axios from '../api/axios'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+    const navigate = useNavigate();
 
-  const handleLogin = async (event) => {
-    event.preventDefault(); // Prevent form from submitting the default way
-    console.log('handleLogin function called');
-    console.log('Username:', username);
-    console.log('Password:', password);
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
 
-    try {
-      console.log('Sending POST request to /api/login/');
-      const response = await axios.post('login/', { // The base URL already includes /api/
-        username,
-        password,
-      });
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('login/', formData);
+            console.log('Login successful:', response.data);
+            // Redirect to the landing page
+            navigate('/landing');
+        } catch (error) {
+            console.error('There was an error logging in!', error);
+        }
+    };
 
-      console.log('Response:', response);
-
-      if (response.status === 200) {
-        console.log('Login successful');
-        navigate('/landing'); // Redirect to the landing page
-      } else {
-        setError(response.data.error || 'Login failed. Please check your credentials and try again.');
-        console.log('Login failed with status:', response.status);
-      }
-    } catch (error) {
-      setError(error.response?.data?.error || 'An error occurred. Please try again later.');
-      console.log('Error:', error);
-    }
-  };
-
-  return (
-    <div className="login-page">
-      {error && <div className="alert alert-danger">{error}</div>}
-      <form onSubmit={handleLogin} className="d-flex"> {/* Added className="d-flex" for flex layout */}
-        <input
-          type="text"
-          placeholder="User Name"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="form-control mr-2"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="form-control"
-        />
-        <button type="submit" style={{ display: 'none' }}>Login</button> {/* Hidden button to enable form submission on Enter */}
-      </form>
-    </div>
-  );
+    return (
+        <div className="login-container">
+            <h1>Login</h1>
+            <form onSubmit={handleSubmit}>
+                <input type="email" name="email" placeholder="Email" className="form-control" onChange={handleChange} />
+                <input type="password" name="password" placeholder="Password" className="form-control" onChange={handleChange} />
+                <button type="submit" className="btn btn-primary mt-3">Login</button>
+            </form>
+        </div>
+    );
 };
 
 export default LoginPage;
