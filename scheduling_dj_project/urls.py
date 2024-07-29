@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-#from scheduling_dj_project.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('scheduling_app.urls')),
+    path('', include('scheduling_app.urls')),  # Include the URLs from your scheduling_app
 ]
+

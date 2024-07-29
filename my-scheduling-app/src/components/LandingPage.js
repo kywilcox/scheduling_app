@@ -1,14 +1,11 @@
 import React from 'react';
-import Layout from './Layout';
 
 const LandingPage = () => {
   return (
-    <Layout>
-      <div className="info-section">
-        <h2>Welcome to the Scheduling App</h2>
-        {/* Main Landing Page Content */}
-      </div>
-    </Layout>
+    <div className="content">
+      {/* Landing Page Content */}
+      <h2>Landing Page</h2>
+    </div>
   );
 };
 

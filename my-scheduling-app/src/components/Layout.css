@@ -1,0 +1,115 @@
+/* Add your existing styles here */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #007bff; /* Your navbar background color */
+  padding: 10px 20px;
+}
+
+.navbar .logo a {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.navbar nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.navbar nav ul li {
+  position: relative;
+}
+
+.navbar nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  display: block;
+}
+
+.navbar nav ul li a:hover {
+  background-color: #0056b3; /* Hover color */
+}
+
+.navbar nav ul li.dropdown {
+  cursor: pointer;
+}
+
+.navbar nav ul li .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  flex-direction: column; /* Ensure links are stacked vertically */
+  top: 100%; /* Position below the dropdown link */
+  left: 0;
+}
+
+.navbar nav ul li .dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.navbar nav ul li .dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.navbar nav ul li.dropdown:hover .dropdown-content,
+.navbar nav ul li.dropdown:focus-within .dropdown-content,
+.navbar nav ul li.dropdown .dropdown-content {
+  display: flex; /* Display the content when hovered or focused */
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-info span {
+  color: white;
+  margin-right: 10px;
+}
+
+.logout {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background-color: #5a6268;
+}
+
+/* Additional styles for dropdown visibility handling */
+.dropdown-content {
+  display: none;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content,
+.dropdown .dropdown-content {
+  display: flex; /* Ensure links are stacked vertically */
+  flex-direction: column;
+}
+
+/* Styles for BuildUserProfile component */
+.expandable-section {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.expandable-section input[type="text"] {
+  margin-right: 10px;
+}
