@@ -1,4 +1,5 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import LandingPage from './components/LandingPage';
@@ -12,7 +13,9 @@ import ManageUsers from './components/ManageUsers';
 import LoginPage from './components/LoginPage';
 import Register from './components/Register';
 import Layout from './components/Layout';
-import AccountSettings from './components/AccountSettings'; // Import the new component
+import AccountSettings from './components/AccountSettings';
+import Locations from './components/Locations';
+import ManageAssignments from './components/ManageAssignments'; // Import the new component
 
 function App() {
   return (
@@ -29,8 +32,10 @@ function App() {
           <Route path="support" element={<SupportPage />} />
           <Route path="settings" element={<Settings />}>
             <Route path="account-settings" element={<AccountSettings />} />
+            <Route path="locations" element={<Locations />} />
             <Route path="build-user-profile" element={<BuildUserProfile />} />
             <Route path="manage-users" element={<ManageUsers />} />
+            <Route path="manage-assignments" element={<ManageAssignments />} /> {/* New route */}
           </Route>
         </Route>
       </Routes>

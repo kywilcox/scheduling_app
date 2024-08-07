@@ -1,6 +1,5 @@
-# models.py
-
 from django.db import models
+from django.contrib.auth.models import User
 
 class Account(models.Model):
     account_id = models.AutoField(primary_key=True)
@@ -63,3 +62,40 @@ class CustomUser(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.user_type})"
+
+class Location(models.Model):
+    location_id = models.AutoField(primary_key=True)
+    location_name = models.CharField(max_length=255)
+    location_abbreviation = models.CharField(max_length=50)
+    location_address = models.CharField(max_length=255)
+    location_address2 = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    zip_code = models.CharField(max_length=10)
+    created_by = models.ForeignKey(User, related_name='location_creators', on_delete=models.SET_NULL, null=True)
+    updated_by = models.ForeignKey(User, related_name='location_updaters', on_delete=models.SET_NULL, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.location_name
+
+class Assignment(models.Model):
+    assignment_id = models.AutoField(primary_key=True)
+    assignment_name = models.CharField(max_length=255)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    days_of_week = models.JSONField(default=list)
+    weekend_days = models.JSONField(default=list)
+    is_night = models.BooleanField(default=False)
+    min_slots = models.PositiveIntegerField(default=0)
+    max_slots = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+    created_by = models.ForeignKey(User, related_name='assignment_creators', on_delete=models.SET_NULL, null=True)
+    updated_by = models.ForeignKey(User, related_name='assignment_updaters', on_delete=models.SET_NULL, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.assignment_name

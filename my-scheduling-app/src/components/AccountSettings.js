@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from '../api/axios';  // Import the axios instance
+import { CsrfContext } from './Layout'; // Import the CsrfContext
 
 const AccountSettings = () => {
   const [account, setAccount] = useState({
@@ -16,11 +17,18 @@ const AccountSettings = () => {
     zip_code: ''
   });
 
+  const csrfToken = useContext(CsrfContext); // Consume the csrfToken from the context
+
   useEffect(() => {
     const fetchAccountDetails = async () => {
       try {
         const account_id = sessionStorage.getItem('account_id');  // Retrieve account_id from session storage
-        const response = await axios.get(`http://localhost:8000/api/accounts/${account_id}/`);
+        const response = await axios.get(`http://localhost:8000/api/accounts/${account_id}/`, {
+          headers: {
+            'X-CSRFToken': csrfToken,
+          },
+          withCredentials: true,
+        });
         setAccount(response.data);
       } catch (error) {
         console.error('There was an error fetching the account details!', error);
@@ -28,7 +36,7 @@ const AccountSettings = () => {
     };
 
     fetchAccountDetails();
-  }, []);
+  }, [csrfToken]);
 
   const handleInputChange = (field, value) => {
     setAccount(prevAccount => ({
@@ -40,7 +48,12 @@ const AccountSettings = () => {
   const handleSave = async () => {
     try {
       const account_id = sessionStorage.getItem('account_id');  // Retrieve account_id from session storage
-      const response = await axios.put(`http://localhost:8000/api/accounts/${account_id}/`, account);
+      const response = await axios.put(`http://localhost:8000/api/accounts/${account_id}/`, account, {
+        headers: {
+          'X-CSRFToken': csrfToken,
+        },
+        withCredentials: true,
+      });
       console.log('Account updated:', response.data);
     } catch (error) {
       console.error('There was an error updating the account!', error);

@@ -1,6 +1,4 @@
-// src/components/LoginPage.js
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from '../api/axios';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,12 +8,38 @@ const LoginPage = () => {
         email: '',
         password: ''
     });
+    const [csrfToken, setCsrfToken] = useState('');
     const navigate = useNavigate();
 
-    const getCsrfToken = () => {
+    const getCsrfTokenFromCookies = () => {
         const csrfToken = document.cookie.split(';').find(cookie => cookie.trim().startsWith('csrftoken='));
+        console.log('CSRF token from cookies:', csrfToken ? csrfToken.split('=')[1] : 'not found');
         return csrfToken ? csrfToken.split('=')[1] : '';
     };
+
+    const fetchCsrfToken = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/api/get_csrf_token/', {
+                withCredentials: true,
+            });
+            if (response.data.csrfToken) {
+                document.cookie = `csrftoken=${response.data.csrfToken}; path=/`;
+                setCsrfToken(response.data.csrfToken);
+                console.log('Fetched and set CSRF token:', response.data.csrfToken);
+            }
+        } catch (error) {
+            console.error('Error fetching CSRF token:', error);
+        }
+    };
+
+    useEffect(() => {
+        const token = getCsrfTokenFromCookies();
+        if (!token) {
+            fetchCsrfToken();
+        } else {
+            setCsrfToken(token);
+        }
+    }, []);
 
     const handleChange = (e) => {
         setFormData({
@@ -29,8 +53,9 @@ const LoginPage = () => {
         try {
             const response = await axios.post('http://localhost:8000/api/login/', formData, {
                 headers: {
-                    'X-CSRFToken': getCsrfToken(),
+                    'X-CSRFToken': csrfToken,
                 },
+                withCredentials: true,
             });
             console.log('Login successful:', response.data);
             // Store account_id in session storage

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Account, CustomField, CustomUser, UserType
+from .models import Account, CustomField, CustomUser, UserType, Location, Assignment
 
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
@@ -62,3 +62,44 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'schedule_name',
             'custom_fields',
         ]
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = [
+            'location_id',
+            'location_name',
+            'location_abbreviation',
+            'location_address',
+            'location_address2',
+            'city',
+            'state',
+            'zip_code',
+            'created_by',
+            'updated_by',
+            'created_at',
+            'updated_at',
+        ]
+        read_only_fields = ['created_by', 'updated_by', 'created_at', 'updated_at']
+
+class AssignmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Assignment
+        fields = [
+            'assignment_id',
+            'assignment_name',
+            'location',
+            'start_time',
+            'end_time',
+            'days_of_week',
+            'weekend_days',
+            'is_night',
+            'min_slots',
+            'max_slots',
+            'is_active',
+            'created_by',
+            'updated_by',
+            'created_at',
+            'updated_at',
+        ]
+        read_only_fields = ['created_by', 'updated_by', 'created_at', 'updated_at']

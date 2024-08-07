@@ -59,15 +59,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
+    'rest_framework',
+    'django_extensions',
     # My apps
     'scheduling_app',
-    'rest_framework',
-    'corsheaders',
-    'django_extensions',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Ensure this is at the top
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -173,15 +173,24 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CORS settings
+ # CORS settings
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
+
+# Allow all origins (not recommended for production)
+CORS_ALLOW_ALL_ORIGINS = True
+
+
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
     'authorization',
     'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
     'x-csrftoken',
     'x-requested-with',
 ]
